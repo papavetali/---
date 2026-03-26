@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WaterApp</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="running-cat" aria-hidden="true">🐈</div>
+
+  <main class="page">
+    <section id="auth-view">
+      <section id="auth-section" class="card auth-shell">
+        <div class="tabs auth-tabs" role="tablist" aria-label="Авторизация">
+          <button type="button" class="tab-button is-active" data-tab-group="auth" data-tab-target="login-panel">Вход</button>
+          <button type="button" class="tab-button" data-tab-group="auth" data-tab-target="register-panel">Регистрация</button>
+        </div>
+
+        <div id="login-panel" class="tab-panel is-active" data-tab-panel="auth">
+          <h2>Вход в приложение</h2>
+          <form id="login-form" class="form">
+            <label>
+              Логин
+              <input type="text" name="username" maxlength="30" required>
+            </label>
+            <label>
+              Пароль
+              <input type="password" name="password" minlength="4" maxlength="50" required>
+            </label>
+            <button type="submit">Войти</button>
+          </form>
+        </div>
+
+        <div id="register-panel" class="tab-panel hidden" data-tab-panel="auth">
+          <h2>Регистрация</h2>
+          <form id="register-form" class="form">
+            <label>
+              Логин
+              <input type="text" name="username" maxlength="30" required>
+            </label>
+            <label>
+              Пароль
+              <input type="password" name="password" minlength="4" maxlength="50" required>
+            </label>
+            <button type="submit">Создать аккаунт</button>
+          </form>
+        </div>
+      </section>
+    </section>
+
+    <section id="app-section" class="hidden">
+      <div class="card topbar">
+        <div>
+          <h2 id="welcome-text">Здравствуйте</h2>
+          <div class="topbar-badges">
+            <p id="role-text" class="role-text hidden">Роль: администратор</p>
+            <div class="streak-pill">
+              <span>Серия</span>
+              <strong id="streak-value">0 дней</strong>
+            </div>
+          </div>
+        </div>
+        <button id="logout-btn" class="button-secondary" type="button">Выйти</button>
+      </div>
+
+      <div class="tabs app-tabs" role="tablist" aria-label="Навигация приложения">
+        <button type="button" class="tab-button is-active" data-tab-group="app" data-tab-target="overview-tab">Обзор</button>
+        <button type="button" class="tab-button" data-tab-group="app" data-tab-target="entries-tab">Записи</button>
+        <button type="button" id="admin-tab-button" class="tab-button hidden" data-tab-group="app" data-tab-target="admin-tab">Админ</button>
+      </div>
+
+      <section id="overview-tab" class="tab-panel is-active app-tab-panel" data-tab-panel="app">
+        <div class="grid app-grid">
+        <div class="card">
+          <h2>Дневная цель</h2>
+          <form id="goal-form" class="form">
+            <label>
+              Цель в миллилитрах
+              <input type="number" name="goal" min="100" max="10000" step="50" required>
+            </label>
+            <button type="submit">Сохранить цель</button>
+          </form>
+        </div>
+
+        <div class="card progress-card">
+          <div class="progress-copy">
+            <h2>Прогресс за сегодня</h2>
+            <p class="progress-caption">Капля заполняется по мере того, как пользователь добавляет выпитую воду, а серия показывает, сколько дней подряд вы не пропускали отметки.</p>
+            <div class="stats">
+              <div class="stat-item">
+                <span>Выпито</span>
+                <strong id="drunk-value">0 мл</strong>
+              </div>
+              <div class="stat-item">
+                <span>Осталось</span>
+                <strong id="left-value">0 мл</strong>
+              </div>
+              <div class="stat-item">
+                <span>Выполнение</span>
+                <strong id="percent-value">0%</strong>
+              </div>
+            </div>
+          </div>
+          <div class="drop-stage" aria-hidden="true">
+            <div class="water-drop">
+              <div id="progress-bar" class="water-drop__liquid"></div>
+              <div class="water-drop__shine"></div>
+              <div class="water-drop__glow"></div>
+              <strong id="drop-percent" class="water-drop__percent">0%</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      </section>
+
+      <section id="entries-tab" class="tab-panel app-tab-panel hidden" data-tab-panel="app">
+        <div class="grid app-grid">
+          <div class="card">
+            <h2>Добавить запись</h2>
+          <form id="entry-form" class="form">
+            <label>
+              Дата и время
+              <input type="datetime-local" name="datetime" required>
+            </label>
+            <label>
+              Объём воды (мл)
+              <input type="number" name="amount" min="1" max="5000" step="1" required>
+            </label>
+            <button type="submit">Добавить</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2>Сохранённые записи</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Дата</th>
+                  <th>Время</th>
+                  <th>Объём</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="entries-body">
+                <tr>
+                  <td colspan="4" class="empty">Нет записей</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      </section>
+
+      <section id="admin-tab" class="tab-panel app-tab-panel hidden" data-tab-panel="app">
+        <section id="admin-section" class="hidden">
+          <div class="card admin-card">
+          <p class="eyebrow">Панель администратора</p>
+          <h2>Управление системой</h2>
+          <div class="stats admin-stats">
+            <div class="stat-item">
+              <span>Пользователей</span>
+              <strong id="admin-users-count">0</strong>
+            </div>
+            <div class="stat-item">
+              <span>Всего записей</span>
+              <strong id="admin-entries-count">0</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid app-grid">
+          <div class="card">
+            <h2>Пользователи</h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Логин</th>
+                    <th>Роль</th>
+                    <th>Цель</th>
+                    <th>Записи</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="admin-users-body">
+                  <tr>
+                    <td colspan="5" class="empty">Нет данных</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Все записи</h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Пользователь</th>
+                    <th>Дата</th>
+                    <th>Время</th>
+                    <th>Объём</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="admin-entries-body">
+                  <tr>
+                    <td colspan="5" class="empty">Нет данных</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <div id="message" class="message hidden"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

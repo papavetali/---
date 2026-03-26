@@ -1,0 +1,23 @@
+[
+    {
+        "id": "user_69be4ec992f288.48796079",
+        "username": "123",
+        "password": "$2y$12$or85PXpGLcP1Xs.EsDYsIuuMnzJ.XGoT6X1.Cfp2nebOjPNB1Ua8a",
+        "goal": 3000,
+        "role": "admin"
+    },
+    {
+        "id": "user_69c20759c33e65.65870230",
+        "username": "Виталя",
+        "password": "$2y$12$LsjP\/x3L7LLGga82lAPMGOpu\/\/37WLca0l.CQ9xs6CxXXkQCBIKbS",
+        "goal": 4000,
+        "role": "user"
+    },
+    {
+        "id": "user_69c3b3df54a569.85710570",
+        "username": "Актан",
+        "password": "$2y$12$f7hxKJMyI2QoBSTr23t2bes41mNpvprd1\/py7DODtdN7kzq.pHOJO",
+        "goal": 3000,
+        "role": "user"
+    }
+]
